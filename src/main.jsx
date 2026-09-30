@@ -458,23 +458,6 @@ function App() {
           </div>
 
 
-          <div className="heroImg">
-
-            <img
-              src={img("IMG_1033.jpeg")}
-              alt="Weird Culture streetwear"
-            />
-
-            <label>
-              WEIRD
-              <br />
-              GANG
-            </label>
-
-          </div>
-
-        </section>
-
 
         {/* ===================================================
             CATEGORIES
