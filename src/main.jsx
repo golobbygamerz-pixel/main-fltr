@@ -2,6 +2,8 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
+const img = (name) => `${import.meta.env.BASE_URL}images/${name}`;
+
 const products = [
   ["Shadow Print Zip Hoodie", "HOODIES", "₹2,499", "product-1.jpg"],
   ["Wave Stripe Long Sleeve", "LONG SLEEVES", "₹1,499", "product-2.jpg"],
@@ -22,12 +24,14 @@ function App() {
 
         <nav>
           <a className="logo" href="#">MAIN<span>FILTER</span></a>
+
           <div className="links">
             <a href="#">HOME</a>
             <a href="#shop">SHOP</a>
             <a href="#trending">TRENDING</a>
             <a href="#about">ABOUT</a>
           </div>
+
           <a className="bag" href="#shop">BAG <b>0</b></a>
         </nav>
       </header>
@@ -37,22 +41,23 @@ function App() {
           <div className="heroText">
             <small>STREETWEAR / INDIA</small>
             <h1>WEAR<br /><em>DIFFERENT.</em></h1>
-            <p>
-              Everyday pieces for people who don't follow the usual.
-            </p>
+            <p>Everyday pieces for people who don't follow the usual.</p>
             <a className="btn" href="#shop">SHOP NOW →</a>
           </div>
 
           <div className="heroImg">
-            <img src="/images/product-1.jpg" alt="Mainfilter streetwear" />
+            <img src={img("product-1.jpg")} alt="Mainfilter streetwear" />
             <label>NEW<br />DROP</label>
           </div>
         </section>
 
         <section className="cats">
           <span>SHOP BY</span>
+
           {["ALL", "T-SHIRTS", "HOODIES", "JACKETS", "LONG SLEEVES"].map(
-            category => <a key={category} href="#shop">{category}</a>
+            category => (
+              <a key={category} href="#shop">{category}</a>
+            )
           )}
         </section>
 
@@ -62,6 +67,7 @@ function App() {
               <small>LATEST DROP</small>
               <h2>SHOP THE EDIT</h2>
             </div>
+
             <a href="#shop">VIEW ALL →</a>
           </div>
 
@@ -70,13 +76,18 @@ function App() {
               <article className="card" key={product[0]}>
                 <div className="pic">
                   <img
-                    src={"/images/" + product[3]}
+                    src={img(product[3])}
                     alt={product[0]}
                     loading="lazy"
                   />
+
                   {i < 2 && <b>NEW</b>}
-                  <button aria-label={"Add " + product[0]}>+</button>
+
+                  <button aria-label={"Add " + product[0]}>
+                    +
+                  </button>
                 </div>
+
                 <p>{product[1]}</p>
                 <h3>{product[0]}</h3>
                 <strong>{product[2]}</strong>
@@ -88,18 +99,36 @@ function App() {
         <section id="trending" className="trend">
           <div>
             <small>WHAT'S MOVING</small>
-            <h2>TRENDING<br /><em>RIGHT NOW.</em></h2>
+
+            <h2>
+              TRENDING<br />
+              <em>RIGHT NOW.</em>
+            </h2>
+
             <p>
               Clean silhouettes. Strong details. Built for everyday rotation.
             </p>
-            <a className="btn" href="#shop">EXPLORE →</a>
+
+            <a className="btn" href="#shop">
+              EXPLORE →
+            </a>
           </div>
-          <img src="/images/product-5.jpg" alt="Trending Mainfilter piece" loading="lazy" />
+
+          <img
+            src={img("product-5.jpg")}
+            alt="Trending Mainfilter piece"
+            loading="lazy"
+          />
         </section>
 
         <section id="about" className="about">
           <small>OUR WORLD</small>
-          <h2>NOT FOR EVERYONE.<br /><em>MADE FOR YOU.</em></h2>
+
+          <h2>
+            NOT FOR EVERYONE.<br />
+            <em>MADE FOR YOU.</em>
+          </h2>
+
           <p>
             MAINFILTER is a streetwear label built around everyday fits,
             sharp details and pieces that stand out without trying too hard.
@@ -108,7 +137,10 @@ function App() {
       </main>
 
       <footer>
-        <a className="logo" href="#">MAIN<span>FILTER</span></a>
+        <a className="logo" href="#">
+          MAIN<span>FILTER</span>
+        </a>
+
         <p>© 2026 Mainfilter. All rights reserved.</p>
       </footer>
     </>
