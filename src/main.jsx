@@ -2,17 +2,8 @@ import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
-/* =========================================================
-   IMAGE PATH
-========================================================= */
-
 const img = (name) =>
   `${import.meta.env.BASE_URL}Images/${name}`;
-
-
-/* =========================================================
-   PRODUCT DATA
-========================================================= */
 
 const products = [
   {
@@ -25,7 +16,6 @@ const products = [
     description:
       "A heavyweight everyday zip hoodie built with an oversized streetwear silhouette. Finished with a subtle tonal graphic treatment for a clean but distinctive look.",
   },
-
   {
     id: 2,
     name: "Wave Stripe Long Sleeve",
@@ -36,7 +26,6 @@ const products = [
     description:
       "A relaxed long sleeve with a clean striped construction. Easy to layer and designed for everyday streetwear rotation.",
   },
-
   {
     id: 3,
     name: "Apex Track Jacket",
@@ -45,9 +34,8 @@ const products = [
     image: "IMG_1035.jpeg",
     sizes: ["M", "L", "XL", "XXL"],
     description:
-      "A lightweight technical-inspired track jacket with contrast detailing and a sporty utility construction. Designed to bring structure to everyday fits.",
+      "A lightweight technical-inspired track jacket with contrast detailing and a sporty utility construction.",
   },
-
   {
     id: 4,
     name: "Ribbed Utility Jacket",
@@ -56,9 +44,8 @@ const products = [
     image: "IMG_1036.jpeg",
     sizes: ["S", "M", "L", "XL"],
     description:
-      "A structured utility jacket featuring a textured finish, clean collar and functional detailing. Built for layered streetwear looks.",
+      "A structured utility jacket featuring a textured finish, clean collar and functional detailing.",
   },
-
   {
     id: 5,
     name: "Anticipate Layered Tee",
@@ -67,9 +54,8 @@ const products = [
     image: "IMG_1037.jpeg",
     sizes: ["S", "M", "L", "XL"],
     description:
-      "A graphic layered tee inspired by Y2K streetwear. Bold artwork meets a relaxed silhouette for an effortless everyday statement.",
+      "A graphic layered tee inspired by Y2K streetwear. Bold artwork meets a relaxed silhouette.",
   },
-
   {
     id: 6,
     name: "Essential Logo Zip Hoodie",
@@ -78,32 +64,18 @@ const products = [
     image: "IMG_1038.jpeg",
     sizes: ["S", "M", "L", "XL"],
     description:
-      "A minimal everyday zip hoodie with a clean logo detail and relaxed fit. Designed as an easy essential for daily wear.",
+      "A minimal everyday zip hoodie with a clean logo detail and relaxed fit.",
   },
 ];
 
-
-/* =========================================================
-   FORMAT PRICE
-========================================================= */
-
 const formatPrice = (price) =>
   `₹${price.toLocaleString("en-IN")}`;
-
-
-/* =========================================================
-   APP
-========================================================= */
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
   const [cartCount, setCartCount] = useState(0);
   const [cartMessage, setCartMessage] = useState("");
-
-  /* =======================================================
-     OPEN PRODUCT
-  ======================================================= */
 
   const openProduct = (product) => {
     setSelectedProduct(product);
@@ -116,11 +88,6 @@ function App() {
     });
   };
 
-
-  /* =======================================================
-     CLOSE PRODUCT
-  ======================================================= */
-
   const closeProduct = () => {
     setSelectedProduct(null);
     setSelectedSize("");
@@ -131,11 +98,6 @@ function App() {
       behavior: "smooth",
     });
   };
-
-
-  /* =======================================================
-     ADD TO CART
-  ======================================================= */
 
   const addToCart = () => {
     if (!selectedSize) {
@@ -150,11 +112,6 @@ function App() {
     );
   };
 
-
-  /* =======================================================
-     BUY NOW
-  ======================================================= */
-
   const buyNow = () => {
     if (!selectedSize) {
       setCartMessage("SELECT A SIZE FIRST");
@@ -166,7 +123,6 @@ function App() {
     );
   };
 
-
   /* =======================================================
      PRODUCT DETAIL PAGE
   ======================================================= */
@@ -175,9 +131,8 @@ function App() {
     return (
       <div className="productPage">
 
-        {/* PRODUCT NAV */}
-
         <header className="productHeader">
+
           <button
             className="backButton"
             onClick={closeProduct}
@@ -199,16 +154,14 @@ function App() {
           <div className="productCart">
             BAG <b>{cartCount}</b>
           </div>
+
         </header>
 
 
-        {/* PRODUCT */}
-
         <main className="productDetail">
 
-          {/* IMAGE */}
-
           <div className="productImageWrap">
+
             <img
               src={img(selectedProduct.image)}
               alt={selectedProduct.name}
@@ -217,10 +170,9 @@ function App() {
             <span className="productTag">
               NEW DROP
             </span>
+
           </div>
 
-
-          {/* INFORMATION */}
 
           <div className="productInfo">
 
@@ -236,11 +188,8 @@ function App() {
               {formatPrice(selectedProduct.price)}
             </div>
 
-
             <div className="productDivider" />
 
-
-            {/* DESCRIPTION */}
 
             <div className="productDescription">
 
@@ -253,23 +202,21 @@ function App() {
             </div>
 
 
-            {/* SIZE */}
-
             <div className="sizeSection">
 
               <div className="sizeHeader">
+
                 <h3>SELECT SIZE</h3>
 
                 <span>
                   SIZE GUIDE
                 </span>
-              </div>
 
+              </div>
 
               <div className="sizeButtons">
 
                 {selectedProduct.sizes.map((size) => (
-
                   <button
                     key={size}
                     className={
@@ -284,15 +231,12 @@ function App() {
                   >
                     {size}
                   </button>
-
                 ))}
 
               </div>
 
             </div>
 
-
-            {/* ACTIONS */}
 
             <div className="productActions">
 
@@ -313,16 +257,12 @@ function App() {
             </div>
 
 
-            {/* MESSAGE */}
-
             {cartMessage && (
               <div className="cartMessage">
                 {cartMessage}
               </div>
             )}
 
-
-            {/* DETAILS */}
 
             <div className="productDetailsList">
 
@@ -358,13 +298,11 @@ function App() {
 
   return (
     <>
-      {/* =====================================================
-          TOP BAR
-      ===================================================== */}
 
       <header>
 
         <div className="top">
+
           <span>
             FREE SHIPPING ON ORDERS ABOVE ₹999
           </span>
@@ -376,23 +314,41 @@ function App() {
           <span>
             UNDERGROUND / INDIA / 2026
           </span>
+
         </div>
 
 
-        {/* NAV */}
+        {/* =================================================
+            NEW GLASS NAVBAR
+        ================================================= */}
 
-        <nav>
+        <nav className="glassNav">
+
+          {/* Hamburger */}
+
+          <button
+            className="menuButton"
+            aria-label="Open menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+
+          {/* Logo */}
 
           <a
             className="logo"
             href="#"
           >
-            WEIRD
-            <span>CULTURE</span>
+            WEIRD<span>CULTURE</span>
           </a>
 
 
-          <div className="links">
+          {/* Desktop Links */}
+
+          <div className="desktopLinks">
 
             <a href="#">
               HOME
@@ -413,12 +369,52 @@ function App() {
           </div>
 
 
-          <a
-            className="bag"
-            href="#shop"
-          >
-            BAG <b>{cartCount}</b>
-          </a>
+          {/* Right Actions */}
+
+          <div className="navActions">
+
+            {/* Search */}
+
+            <button
+              className="searchButton"
+              aria-label="Search"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="6.5"
+                />
+
+                <path d="m16 16 5 5" />
+
+              </svg>
+
+            </button>
+
+
+            {/* Bag */}
+
+            <a
+              className="glassBag"
+              href="#shop"
+            >
+              <span>BAG</span>
+
+              <b>
+                {cartCount}
+              </b>
+
+            </a>
+
+          </div>
 
         </nav>
 
@@ -426,12 +422,10 @@ function App() {
 
 
       {/* =====================================================
-          MAIN
+          HERO
       ===================================================== */}
 
       <main>
-
-        {/* HERO */}
 
         <section className="hero">
 
@@ -488,7 +482,9 @@ function App() {
 
         <section className="cats">
 
-          <span>SHOP BY</span>
+          <span>
+            SHOP BY
+          </span>
 
           {[
             "ALL",
@@ -512,7 +508,7 @@ function App() {
 
 
         {/* ===================================================
-            SHOP
+            PRODUCTS
         =================================================== */}
 
         <section
@@ -563,14 +559,14 @@ function App() {
                     }
                   />
 
-                  {index === 0 ||
-                  index === 3 ? (
-                    <b>NEW DROP</b>
-                  ) : null}
-
+                  {(index === 0 || index === 3) && (
+                    <b>
+                      NEW DROP
+                    </b>
+                  )}
 
                   <button
-                    aria-label={`Add ${product.name}`}
+                    aria-label={`Open ${product.name}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       openProduct(product);
@@ -688,8 +684,7 @@ function App() {
           className="logo"
           href="#"
         >
-          WEIRD
-          <span>CULTURE</span>
+          WEIRD<span>CULTURE</span>
         </a>
 
         <p>
@@ -703,10 +698,6 @@ function App() {
   );
 }
 
-
-/* =========================================================
-   RENDER
-========================================================= */
 
 createRoot(
   document.getElementById("root")
