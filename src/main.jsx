@@ -548,16 +548,6 @@ function App() {
                     </b>
                   )}
 
-                  <button
-                    aria-label={`Open ${product.name}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openProduct(product);
-                    }}
-                  >
-                    +
-                  </button>
-
                 </div>
 
 
