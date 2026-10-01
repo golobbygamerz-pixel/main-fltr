@@ -2941,3 +2941,46 @@ header {
   }
 
 }
+/* PRODUCT PAGE NAVBAR — CART RIGHT CORNER */
+
+.productHeader {
+  position: relative;
+}
+
+.productHeader .productCart {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  justify-self: unset;
+}
+
+.productHeader .logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .productHeader {
+    position: relative;
+  }
+
+  .productHeader .productCart {
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .productHeader .logo {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
