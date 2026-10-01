@@ -1926,3 +1926,139 @@ header {
     display: none !important;
   }
 }
+/* =========================================================
+   FINAL NAVBAR POSITION + THIN TOP AREA
+========================================================= */
+
+/* Remove top green bar completely */
+.top {
+  display: none !important;
+}
+
+/* Thin floating navbar + move upward */
+.glassNav {
+  width: calc(100% - 10%);
+  min-height: 62px;
+  height: 62px;
+
+  margin: 8px 5% 10px;
+  padding: 0 24px;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 8px 24px rgba(33, 26, 21, 0.10),
+    0 2px 6px rgba(33, 26, 21, 0.04);
+}
+
+/* Smaller search */
+.searchButton {
+  width: 34px;
+  height: 34px;
+}
+
+/* Smaller cart */
+.glassBag {
+  min-height: 34px;
+  height: 34px;
+}
+
+/* Smaller cart count */
+.glassBag b {
+  min-width: 15px;
+  height: 15px;
+  top: -5px;
+  right: -7px;
+  font-size: 7px;
+}
+
+/* Keep actions compact */
+.navActions {
+  gap: 18px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .top {
+    display: none !important;
+  }
+
+  .glassNav {
+    width: calc(100% - 30px);
+
+    min-height: 58px;
+    height: 58px;
+
+    margin: 7px 15px 8px;
+    padding: 0 22px;
+
+    border-radius: 18px;
+
+    box-shadow:
+      0 7px 20px rgba(33, 26, 21, 0.10),
+      0 2px 5px rgba(33, 26, 21, 0.04);
+  }
+
+  .menuButton {
+    width: auto;
+    height: auto;
+
+    background: transparent;
+    border-radius: 0;
+
+    gap: 5px;
+  }
+
+  .menuButton span {
+    width: 25px;
+    height: 2px;
+    background: var(--brown);
+  }
+
+  .logo {
+    font-size: 15px;
+  }
+
+  .navActions {
+    gap: 16px;
+  }
+
+  .searchButton {
+    width: 34px;
+    height: 34px;
+  }
+
+  .searchButton svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .glassBag {
+    min-height: 34px;
+    height: 34px;
+  }
+
+  .glassBag span {
+    display: block;
+    font-size: 0;
+  }
+
+  .glassBag span::after {
+    content: "🛒";
+    font-size: 21px;
+    filter: grayscale(1);
+  }
+
+  .glassBag b {
+    min-width: 15px;
+    height: 15px;
+    top: -5px;
+    right: -7px;
+    font-size: 7px;
+  }
+}
