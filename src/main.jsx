@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
@@ -77,10 +77,17 @@ function App() {
   const [cartCount, setCartCount] = useState(0);
   const [cartMessage, setCartMessage] = useState("");
 
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [flyingProduct, setFlyingProduct] = useState(null);
+
   const openProduct = (product) => {
     setSelectedProduct(product);
     setSelectedSize("");
     setCartMessage("");
+    setSearchOpen(false);
+    setSearchTerm("");
 
     window.scrollTo({
       top: 0,
@@ -110,7 +117,22 @@ function App() {
     setCartMessage(
       `${selectedProduct.name} — SIZE ${selectedSize} ADDED`
     );
+
+    setFlyingProduct({
+      image: selectedProduct.image,
+      id: Date.now(),
+    });
   };
+
+  useEffect(() => {
+    if (!flyingProduct) return;
+
+    const timer = setTimeout(() => {
+      setFlyingProduct(null);
+    }, 900);
+
+    return () => clearTimeout(timer);
+  }, [flyingProduct]);
 
   const buyNow = () => {
     if (!selectedSize) {
@@ -123,13 +145,28 @@ function App() {
     );
   };
 
-  /* =======================================================
-     PRODUCT DETAIL PAGE
-  ======================================================= */
+  const filteredProducts = products.filter((product) => {
+    const query = searchTerm.toLowerCase().trim();
+
+    if (!query) return true;
+
+    return (
+      product.name.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query)
+    );
+  });
 
   if (selectedProduct) {
     return (
       <div className="productPage">
+
+        {flyingProduct && (
+          <img
+            className="flyingProduct"
+            src={img(flyingProduct.image)}
+            alt=""
+          />
+        )}
 
         <header className="productHeader">
 
@@ -284,10 +321,6 @@ function App() {
     );
   }
 
-  /* =======================================================
-     HOME PAGE
-  ======================================================= */
-
   return (
     <>
 
@@ -308,10 +341,6 @@ function App() {
           </span>
 
         </div>
-
-        {/* =================================================
-            NEW GLASS NAVBAR
-        ================================================= */}
 
         <nav className="glassNav">
 
@@ -356,6 +385,15 @@ function App() {
             <button
               className="searchButton"
               aria-label="Search"
+              onClick={() => {
+                setSearchOpen((open) => !open);
+
+                setTimeout(() => {
+                  document
+                    .querySelector(".searchInput")
+                    ?.focus();
+                }, 50);
+              }}
             >
 
               <svg
@@ -393,11 +431,55 @@ function App() {
 
         </nav>
 
-      </header>
+        {searchOpen && (
+          <div className="searchPanel">
 
-      {/* =====================================================
-          HERO
-      ===================================================== */}
+            <input
+              className="searchInput"
+              type="text"
+              placeholder="SEARCH PRODUCTS..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+
+            {searchTerm && (
+              <div className="searchResults">
+
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((product) => (
+                    <button
+                      key={product.id}
+                      onClick={() => openProduct(product)}
+                    >
+                      <img
+                        src={img(product.image)}
+                        alt={product.name}
+                      />
+
+                      <span>
+                        <strong>
+                          {product.name}
+                        </strong>
+
+                        <small>
+                          {formatPrice(product.price)}
+                        </small>
+                      </span>
+                    </button>
+                  ))
+                ) : (
+                  <p>
+                    NO PRODUCTS FOUND
+                  </p>
+                )}
+
+              </div>
+            )}
+
+          </div>
+        )}
+
+      </header>
 
       <main>
 
@@ -426,16 +508,12 @@ function App() {
               className="btn"
               href="#shop"
             >
-              SHOP NOW →
+              CHECK FITS →
             </a>
 
           </div>
 
         </section>
-
-        {/* ===================================================
-            CATEGORIES
-        =================================================== */}
 
         <section className="cats">
 
@@ -462,10 +540,6 @@ function App() {
           ))}
 
         </section>
-
-        {/* ===================================================
-            PRODUCTS
-        =================================================== */}
 
         <section
           id="shop"
@@ -494,57 +568,56 @@ function App() {
 
           <div className="grid">
 
-            {products.map((product, index) => (
+            {(searchTerm ? filteredProducts : products).map(
+              (product, index) => (
 
-              <article
-                className="card"
-                key={product.id}
-                onClick={() => openProduct(product)}
-              >
+                <article
+                  className="card"
+                  key={product.id}
+                  onClick={() => openProduct(product)}
+                >
 
-                <div className="pic">
+                  <div className="pic">
 
-                  <img
-                    src={img(product.image)}
-                    alt={product.name}
-                    loading={
-                      index < 2
-                        ? "eager"
-                        : "lazy"
-                    }
-                  />
+                    <img
+                      src={img(product.image)}
+                      alt={product.name}
+                      loading={
+                        index < 2
+                          ? "eager"
+                          : "lazy"
+                      }
+                    />
 
-                  {(index === 0 || index === 3) && (
-                    <b>
-                      NEW DROP
-                    </b>
-                  )}
+                    {(product.id === 1 ||
+                      product.id === 4) && (
+                      <b>
+                        NEW DROP
+                      </b>
+                    )}
 
-                </div>
+                  </div>
 
-                <p>
-                  {product.category}
-                </p>
+                  <p>
+                    {product.category}
+                  </p>
 
-                <h3>
-                  {product.name}
-                </h3>
+                  <h3>
+                    {product.name}
+                  </h3>
 
-                <strong>
-                  {formatPrice(product.price)}
-                </strong>
+                  <strong>
+                    {formatPrice(product.price)}
+                  </strong>
 
-              </article>
+                </article>
 
-            ))}
+              )
+            )}
 
           </div>
 
         </section>
-
-        {/* ===================================================
-            TRENDING
-        =================================================== */}
 
         <section
           id="trending"
@@ -585,10 +658,6 @@ function App() {
 
         </section>
 
-        {/* ===================================================
-            ABOUT
-        =================================================== */}
-
         <section
           id="about"
           className="about"
@@ -613,10 +682,6 @@ function App() {
         </section>
 
       </main>
-
-      {/* =====================================================
-          FOOTER
-      ===================================================== */}
 
       <footer id="contact">
 
