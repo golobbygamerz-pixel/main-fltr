@@ -71,25 +71,6 @@ const products = [
 const formatPrice = (price) =>
   `₹${price.toLocaleString("en-IN")}`;
 
-function CartIcon() {
-  return (
-    <svg
-      className="cartIcon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 7H6" />
-      <path d="M9 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
-      <path d="M19 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
-    </svg>
-  );
-}
-
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
@@ -208,9 +189,22 @@ function App() {
           </a>
 
           <div className="productCart">
-            <CartIcon />
-            <span>CART</span>
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="9" cy="20" r="1.3" />
+              <circle cx="19" cy="20" r="1.3" />
+              <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.5L22 8H6" />
+            </svg>
+
             <b>{cartCount}</b>
+
           </div>
 
         </header>
@@ -422,16 +416,14 @@ function App() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
+                strokeLinecap="round"
               >
-
                 <circle
                   cx="11"
                   cy="11"
                   r="6.5"
                 />
-
                 <path d="m16 16 5 5" />
-
               </svg>
 
             </button>
@@ -439,17 +431,26 @@ function App() {
             <a
               className="glassBag"
               href="#shop"
-              aria-label="Shopping cart"
+              aria-label={`Shopping cart with ${cartCount} items`}
             >
-              <CartIcon />
 
-              <span>
-                CART
-              </span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="9" cy="20" r="1.3" />
+                <circle cx="19" cy="20" r="1.3" />
+                <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.5L22 8H6" />
+              </svg>
 
               <b>
                 {cartCount}
               </b>
+
             </a>
 
           </div>
