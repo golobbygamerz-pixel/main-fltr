@@ -82,6 +82,27 @@ function App() {
 
   const [flyingProduct, setFlyingProduct] = useState(null);
 
+  const openSearch = () => {
+    setSearchOpen(true);
+    setSearchTerm("");
+    setSelectedProduct(null);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setSearchTerm("");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const openProduct = (product) => {
     setSelectedProduct(product);
     setSelectedSize("");
@@ -155,6 +176,12 @@ function App() {
       product.category.toLowerCase().includes(query)
     );
   });
+
+  /*
+  ========================================
+  PRODUCT DETAIL PAGE
+  ========================================
+  */
 
   if (selectedProduct) {
     return (
@@ -336,6 +363,182 @@ function App() {
     );
   }
 
+  /*
+  ========================================
+  SEARCH PAGE
+  ========================================
+  */
+
+  if (searchOpen) {
+    return (
+      <div className="searchPage">
+
+        <header className="searchPageHeader">
+
+          <button
+            className="searchBackButton"
+            onClick={closeSearch}
+          >
+            ← BACK
+          </button>
+
+          <a
+            className="logo"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              closeSearch();
+            }}
+          >
+            MAIN<span>FILTER</span>
+          </a>
+
+          <div className="searchPageSpacer"></div>
+
+        </header>
+
+        <main className="searchPageContent">
+
+          <div className="searchPageTop">
+
+            <small>
+              SEARCH
+            </small>
+
+            <h1>
+              FIND YOUR FIT.
+            </h1>
+
+          </div>
+
+          <div className="bigSearchBox">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="6.5"
+              />
+
+              <path d="m16 16 5 5" />
+            </svg>
+
+            <input
+              className="bigSearchInput"
+              type="text"
+              placeholder="SEARCH PRODUCTS..."
+              value={searchTerm}
+              onChange={(e) =>
+                setSearchTerm(e.target.value)
+              }
+              autoFocus
+            />
+
+            {searchTerm && (
+              <button
+                className="clearSearch"
+                onClick={() => setSearchTerm("")}
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            )}
+
+          </div>
+
+          <div className="searchPageMeta">
+
+            <span>
+              {searchTerm
+                ? `${filteredProducts.length} RESULTS`
+                : "ALL PRODUCTS"}
+            </span>
+
+          </div>
+
+          <div className="searchProductGrid">
+
+            {filteredProducts.length > 0 ? (
+
+              filteredProducts.map((product) => (
+
+                <article
+                  className="card"
+                  key={product.id}
+                  onClick={() => openProduct(product)}
+                >
+
+                  <div className="pic">
+
+                    <img
+                      src={img(product.image)}
+                      alt={product.name}
+                    />
+
+                    {(product.id === 1 ||
+                      product.id === 4) && (
+                      <b>
+                        NEW DROP
+                      </b>
+                    )}
+
+                  </div>
+
+                  <p>
+                    {product.category}
+                  </p>
+
+                  <h3>
+                    {product.name}
+                  </h3>
+
+                  <strong>
+                    {formatPrice(product.price)}
+                  </strong>
+
+                </article>
+
+              ))
+
+            ) : (
+
+              <div className="noSearchResults">
+                <h2>NO PRODUCTS FOUND.</h2>
+
+                <p>
+                  Try searching for another product
+                  or category.
+                </p>
+
+                <button
+                  onClick={() => setSearchTerm("")}
+                >
+                  VIEW ALL PRODUCTS →
+                </button>
+              </div>
+
+            )}
+
+          </div>
+
+        </main>
+
+      </div>
+    );
+  }
+
+  /*
+  ========================================
+  HOME PAGE
+  ========================================
+  */
+
   return (
     <>
 
@@ -400,15 +603,7 @@ function App() {
             <button
               className="searchButton"
               aria-label="Search"
-              onClick={() => {
-                setSearchOpen((open) => !open);
-
-                setTimeout(() => {
-                  document
-                    .querySelector(".searchInput")
-                    ?.focus();
-                }, 50);
-              }}
+              onClick={openSearch}
             >
 
               <svg
@@ -418,12 +613,15 @@ function App() {
                 strokeWidth="1.8"
                 strokeLinecap="round"
               >
+
                 <circle
                   cx="11"
                   cy="11"
                   r="6.5"
                 />
+
                 <path d="m16 16 5 5" />
+
               </svg>
 
             </button>
@@ -442,9 +640,21 @@ function App() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <circle cx="9" cy="20" r="1.3" />
-                <circle cx="19" cy="20" r="1.3" />
+
+                <circle
+                  cx="9"
+                  cy="20"
+                  r="1.3"
+                />
+
+                <circle
+                  cx="19"
+                  cy="20"
+                  r="1.3"
+                />
+
                 <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.5L22 8H6" />
+
               </svg>
 
               <b>
@@ -456,54 +666,6 @@ function App() {
           </div>
 
         </nav>
-
-        {searchOpen && (
-          <div className="searchPanel">
-
-            <input
-              className="searchInput"
-              type="text"
-              placeholder="SEARCH PRODUCTS..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-
-            {searchTerm && (
-              <div className="searchResults">
-
-                {filteredProducts.length > 0 ? (
-                  filteredProducts.map((product) => (
-                    <button
-                      key={product.id}
-                      onClick={() => openProduct(product)}
-                    >
-                      <img
-                        src={img(product.image)}
-                        alt={product.name}
-                      />
-
-                      <span>
-                        <strong>
-                          {product.name}
-                        </strong>
-
-                        <small>
-                          {formatPrice(product.price)}
-                        </small>
-                      </span>
-                    </button>
-                  ))
-                ) : (
-                  <p>
-                    NO PRODUCTS FOUND
-                  </p>
-                )}
-
-              </div>
-            )}
-
-          </div>
-        )}
 
       </header>
 
@@ -594,13 +756,15 @@ function App() {
 
           <div className="grid">
 
-            {(searchTerm ? filteredProducts : products).map(
+            {products.map(
               (product, index) => (
 
                 <article
                   className="card"
                   key={product.id}
-                  onClick={() => openProduct(product)}
+                  onClick={() =>
+                    openProduct(product)
+                  }
                 >
 
                   <div className="pic">
