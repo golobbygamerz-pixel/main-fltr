@@ -1705,3 +1705,189 @@ footer p {
   }
 
 }
+/* =========================================================
+   NAVBAR — CENTERED FLOATING BAR
+========================================================= */
+
+header {
+  background: var(--cream);
+}
+
+.glassNav {
+  position: relative;
+  top: auto;
+
+  width: calc(100% - 10%);
+  min-height: 78px;
+
+  margin: 16px 5%;
+
+  padding: 0 28px;
+
+  background: var(--cream-light);
+  color: var(--brown);
+
+  border: 1px solid rgba(33, 26, 21, 0.08);
+  border-radius: 24px;
+
+  box-shadow:
+    0 10px 30px rgba(33, 26, 21, 0.12),
+    0 2px 8px rgba(33, 26, 21, 0.05);
+
+  z-index: 50;
+}
+
+.glassNav .logo {
+  color: var(--brown);
+}
+
+.glassNav .desktopLinks a {
+  color: var(--brown);
+}
+
+.glassNav .desktopLinks a:hover {
+  color: var(--lime-dark);
+}
+
+.glassNav .desktopLinks a::after {
+  background: var(--lime-dark);
+}
+
+.searchButton {
+  width: 42px;
+  height: 42px;
+
+  background: transparent;
+  color: var(--brown);
+
+  border: 0;
+  border-radius: 0;
+}
+
+.searchButton:hover {
+  background: transparent;
+  color: var(--brown);
+  transform: none;
+}
+
+.glassBag {
+  min-height: 42px;
+  padding: 0;
+
+  background: transparent;
+  color: var(--brown);
+
+  border-radius: 0;
+
+  position: relative;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.glassBag:hover {
+  background: transparent;
+  color: var(--brown);
+  transform: translateY(-2px);
+}
+
+.glassBag b {
+  position: absolute;
+
+  top: -7px;
+  right: -10px;
+
+  min-width: 17px;
+  height: 17px;
+
+  background: var(--lime);
+  color: var(--brown);
+
+  font-size: 8px;
+}
+
+.navActions {
+  gap: 24px;
+}
+
+
+/* MOBILE NAVBAR */
+
+@media (max-width: 600px) {
+
+  header {
+    background: var(--cream);
+  }
+
+  .glassNav {
+    width: calc(100% - 30px);
+
+    min-height: 78px;
+
+    margin: 16px 15px;
+
+    padding: 0 28px;
+
+    border-radius: 24px;
+
+    box-shadow:
+      0 10px 28px rgba(33, 26, 21, 0.12),
+      0 2px 7px rgba(33, 26, 21, 0.05);
+  }
+
+  .menuButton {
+    width: auto;
+    height: auto;
+
+    background: transparent;
+    border-radius: 0;
+
+    gap: 5px;
+  }
+
+  .menuButton span {
+    width: 28px;
+    height: 2px;
+    background: var(--brown);
+  }
+
+  .searchButton {
+    width: 42px;
+    height: 42px;
+
+    background: transparent;
+    color: var(--brown);
+  }
+
+  .navActions {
+    gap: 22px;
+  }
+
+  .glassBag {
+    min-height: 42px;
+    padding: 0;
+  }
+
+  .glassBag span {
+    display: block;
+
+    font-size: 0;
+  }
+
+  .glassBag span::after {
+    content: "🛒";
+    font-size: 24px;
+    filter: grayscale(1);
+  }
+
+  .glassBag b {
+    top: -7px;
+    right: -8px;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+
+}
