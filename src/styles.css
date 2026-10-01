@@ -2941,3 +2941,37 @@ header {
   }
 
 }
+/* ========================================
+   PRODUCT ACTIONS — RIGHT CORNER
+======================================== */
+
+.productActions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.addCartButton {
+  margin-left: auto;
+}
+
+.buyButton {
+  margin-left: 0;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .productActions {
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .addCartButton,
+  .buyButton {
+    margin-left: 0;
+  }
+}
