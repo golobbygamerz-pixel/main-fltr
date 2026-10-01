@@ -157,7 +157,6 @@ function App() {
 
         </header>
 
-
         <main className="productDetail">
 
           <div className="productImageWrap">
@@ -172,7 +171,6 @@ function App() {
             </span>
 
           </div>
-
 
           <div className="productInfo">
 
@@ -190,7 +188,6 @@ function App() {
 
             <div className="productDivider" />
 
-
             <div className="productDescription">
 
               <h3>DESCRIPTION</h3>
@@ -200,7 +197,6 @@ function App() {
               </p>
 
             </div>
-
 
             <div className="sizeSection">
 
@@ -237,7 +233,6 @@ function App() {
 
             </div>
 
-
             <div className="productActions">
 
               <button
@@ -256,13 +251,11 @@ function App() {
 
             </div>
 
-
             {cartMessage && (
               <div className="cartMessage">
                 {cartMessage}
               </div>
             )}
-
 
             <div className="productDetailsList">
 
@@ -291,7 +284,6 @@ function App() {
     );
   }
 
-
   /* =======================================================
      HOME PAGE
   ======================================================= */
@@ -317,14 +309,11 @@ function App() {
 
         </div>
 
-
         {/* =================================================
             NEW GLASS NAVBAR
         ================================================= */}
 
         <nav className="glassNav">
-
-          {/* Hamburger */}
 
           <button
             className="menuButton"
@@ -335,18 +324,12 @@ function App() {
             <span></span>
           </button>
 
-
-          {/* Logo */}
-
           <a
             className="logo"
             href="#"
           >
             WEIRD<span>CULTURE</span>
           </a>
-
-
-          {/* Desktop Links */}
 
           <div className="desktopLinks">
 
@@ -368,12 +351,7 @@ function App() {
 
           </div>
 
-
-          {/* Right Actions */}
-
           <div className="navActions">
-
-            {/* Search */}
 
             <button
               className="searchButton"
@@ -399,9 +377,6 @@ function App() {
 
             </button>
 
-
-            {/* Bag */}
-
             <a
               className="glassBag"
               href="#shop"
@@ -419,7 +394,6 @@ function App() {
         </nav>
 
       </header>
-
 
       {/* =====================================================
           HERO
@@ -457,7 +431,7 @@ function App() {
 
           </div>
 
-
+        </section>
 
         {/* ===================================================
             CATEGORIES
@@ -489,7 +463,6 @@ function App() {
 
         </section>
 
-
         {/* ===================================================
             PRODUCTS
         =================================================== */}
@@ -518,7 +491,6 @@ function App() {
             </a>
 
           </div>
-
 
           <div className="grid">
 
@@ -550,7 +522,6 @@ function App() {
 
                 </div>
 
-
                 <p>
                   {product.category}
                 </p>
@@ -570,7 +541,6 @@ function App() {
           </div>
 
         </section>
-
 
         {/* ===================================================
             TRENDING
@@ -607,7 +577,6 @@ function App() {
 
           </div>
 
-
           <img
             src={img("IMG_1037.jpeg")}
             alt="Trending Weird Culture piece"
@@ -615,7 +584,6 @@ function App() {
           />
 
         </section>
-
 
         {/* ===================================================
             ABOUT
@@ -646,7 +614,6 @@ function App() {
 
       </main>
 
-
       {/* =====================================================
           FOOTER
       ===================================================== */}
@@ -670,7 +637,6 @@ function App() {
     </>
   );
 }
-
 
 createRoot(
   document.getElementById("root")
