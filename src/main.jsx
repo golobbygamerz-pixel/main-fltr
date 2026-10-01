@@ -71,6 +71,25 @@ const products = [
 const formatPrice = (price) =>
   `₹${price.toLocaleString("en-IN")}`;
 
+function CartIcon() {
+  return (
+    <svg
+      className="cartIcon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 7H6" />
+      <path d="M9 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
+      <path d="M19 20a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
+    </svg>
+  );
+}
+
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
@@ -189,7 +208,9 @@ function App() {
           </a>
 
           <div className="productCart">
-            BAG <b>{cartCount}</b>
+            <CartIcon />
+            <span>CART</span>
+            <b>{cartCount}</b>
           </div>
 
         </header>
@@ -418,13 +439,17 @@ function App() {
             <a
               className="glassBag"
               href="#shop"
+              aria-label="Shopping cart"
             >
-              <span>BAG</span>
+              <CartIcon />
+
+              <span>
+                CART
+              </span>
 
               <b>
                 {cartCount}
               </b>
-
             </a>
 
           </div>
@@ -652,7 +677,7 @@ function App() {
 
           <img
             src={img("IMG_1037.jpeg")}
-            alt="Trending Weird Culture piece"
+            alt="Trending Mainfilter piece"
             loading="lazy"
           />
 
@@ -674,7 +699,7 @@ function App() {
           </h2>
 
           <p>
-            Weird Culture is a mindset.
+            Mainfilter is a mindset.
             Built for the dreamers, the misfits,
             and the ones who don't follow.
           </p>
@@ -689,11 +714,11 @@ function App() {
           className="logo"
           href="#"
         >
-          WEIRD<span>CULTURE</span>
+          MAIN<span>FILTER</span>
         </a>
 
         <p>
-          © 2026 Weird Culture.
+          © 2026 Mainfilter.
           All rights reserved.
         </p>
 
