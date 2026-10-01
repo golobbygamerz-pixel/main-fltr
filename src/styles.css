@@ -1891,3 +1891,38 @@ header {
   }
 
 }
+/* =========================================================
+   THIN TOP BAR
+========================================================= */
+
+.top {
+  min-height: 20px;
+  height: 20px;
+  padding: 0 5%;
+
+  background: var(--lime);
+}
+
+/* Hide the free shipping text */
+.top span:first-child {
+  display: none;
+}
+
+/* Hide remaining top-bar text too */
+.top span:not(:first-child) {
+  display: none;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+  .top {
+    min-height: 16px;
+    height: 16px;
+    padding: 0;
+  }
+
+  .top span {
+    display: none !important;
+  }
+}
