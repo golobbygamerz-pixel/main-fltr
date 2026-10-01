@@ -1531,3 +1531,142 @@ footer p {
   }
 
 }
+/* =========================================================
+   NAVBAR FIX — MAIN FILTER
+========================================================= */
+
+.glassNav {
+  background: var(--cream);
+  color: var(--brown);
+  border-bottom: 1px solid var(--border);
+}
+
+.glassNav .logo {
+  color: var(--brown);
+}
+
+.desktopLinks a {
+  color: var(--brown);
+}
+
+.desktopLinks a:hover {
+  color: var(--brown);
+}
+
+.searchButton {
+  color: var(--brown);
+  border-color: var(--brown);
+  border-radius: 4px;
+}
+
+.searchButton:hover {
+  background: var(--lime);
+  color: var(--brown);
+}
+
+.glassBag {
+  min-height: 42px;
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  background: var(--brown);
+  color: var(--cream);
+
+  border-radius: 4px;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.glassBag:hover {
+  background: var(--brown-light);
+  transform: translateY(-2px);
+}
+
+.glassBag b {
+  min-width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+
+  background: var(--lime);
+  color: var(--brown);
+
+  border-radius: 3px;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   PRODUCT PAGE NAVBAR FIX
+========================================================= */
+
+.productHeader {
+  background: var(--cream);
+  color: var(--brown);
+  border-bottom: 1px solid var(--border);
+}
+
+.productHeader .logo {
+  color: var(--brown);
+}
+
+.backButton {
+  color: var(--brown);
+}
+
+.backButton:hover {
+  color: var(--brown);
+}
+
+.productCart {
+  color: var(--brown);
+}
+
+.productCart b {
+  width: 24px;
+  height: 24px;
+
+  border-radius: 3px;
+
+  background: var(--lime);
+  color: var(--brown);
+}
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .glassNav {
+    background: var(--cream);
+  }
+
+  .menuButton {
+    border-radius: 4px;
+  }
+
+  .glassBag {
+    min-height: 36px;
+    padding: 0 9px;
+
+    border-radius: 4px;
+  }
+
+  .glassBag b {
+    border-radius: 3px;
+  }
+
+  .productHeader {
+    background: var(--cream);
+  }
+
+}
