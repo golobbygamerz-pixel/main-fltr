@@ -87,16 +87,16 @@ img {
 
 
 /* =========================================================
-   NAVBAR
+   NAVBAR — CLEAN PREMIUM VERSION
 ========================================================= */
 
 .glassNav {
   position: sticky;
-  top: 12px;
+  top: 10px;
   z-index: 50;
 
-  min-height: 76px;
-  margin: 12px 2.5% 0;
+  min-height: 72px;
+  margin: 14px 2.5% 0;
   padding: 0 28px;
 
   display: flex;
@@ -111,8 +111,8 @@ img {
   border-radius: 24px;
 
   box-shadow:
-    0 10px 30px rgba(33, 26, 21, 0.10),
-    0 2px 8px rgba(33, 26, 21, 0.05);
+    0 8px 25px rgba(33, 26, 21, 0.10),
+    0 2px 6px rgba(33, 26, 21, 0.05);
 }
 
 .glassNav::before {
@@ -181,25 +181,26 @@ img {
 .menuButton {
   display: none;
 
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
 
-  background: var(--lime);
-
-  border-radius: 50%;
+  background: transparent;
 
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 4px;
+  gap: 5px;
 
-  flex-shrink: 0;
+  border-radius: 0;
 }
 
 .menuButton span {
-  width: 17px;
+  width: 25px;
   height: 2px;
+
   background: var(--brown);
+
+  border-radius: 0;
 }
 
 
@@ -210,15 +211,15 @@ img {
 .navActions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 20px;
 }
 
 
 /* SEARCH */
 
 .searchButton {
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  height: 38px;
 
   display: grid;
   place-items: center;
@@ -226,38 +227,35 @@ img {
   background: transparent;
   color: var(--brown);
 
-  border: 1px solid rgba(33, 26, 21, 0.22);
-  border-radius: 50%;
+  border: 0;
+  border-radius: 0;
 
   transition:
-    background 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease,
-    border-color 0.2s ease;
+    transform 0.2s ease;
 }
 
 .searchButton:hover {
-  background: var(--lime);
-  color: var(--brown);
-  border-color: var(--lime);
-  transform: translateY(-2px);
+  background: transparent;
+  color: var(--lime-dark);
+  transform: translateY(-1px);
 }
 
 .searchButton svg {
-  width: 21px;
-  height: 21px;
+  width: 27px;
+  height: 27px;
+
+  stroke-width: 1.8;
 }
 
 
-/* =========================================================
-   CART / BAG
-========================================================= */
+/* CART */
 
 .glassBag {
   position: relative;
 
-  width: 52px;
-  height: 48px;
+  width: 40px;
+  height: 42px;
   padding: 0;
 
   display: flex;
@@ -267,35 +265,39 @@ img {
   background: transparent;
   color: var(--brown);
 
-  border: 1px solid rgba(33, 26, 21, 0.22);
-  border-radius: 14px;
+  border-radius: 0;
 
   font-size: 0;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
+    color 0.2s ease,
     transform 0.2s ease;
 }
 
 
-/* CSS CART ICON */
+/* CSS-DRAWN CART ICON */
 
 .glassBag::before {
   content: "";
 
-  width: 21px;
-  height: 17px;
+  position: absolute;
 
-  display: block;
+  width: 20px;
+  height: 15px;
 
-  border: 2px solid var(--brown);
+  left: 50%;
+  top: 15px;
+
+  transform: translateX(-50%);
+
+  border: 2.3px solid var(--brown);
   border-top: 0;
 
-  border-radius: 2px;
-
-  transform: translateY(3px);
+  border-radius: 1px 1px 4px 4px;
 }
+
+
+/* CART HANDLE */
 
 .glassBag::after {
   content: "";
@@ -303,24 +305,24 @@ img {
   position: absolute;
 
   width: 10px;
-  height: 7px;
+  height: 8px;
 
-  top: 11px;
   left: 50%;
+  top: 8px;
 
-  border: 2px solid var(--brown);
+  transform: translateX(-50%);
+
+  border: 2.3px solid var(--brown);
   border-bottom: 0;
 
   border-radius: 8px 8px 0 0;
-
-  transform: translateX(-50%);
 }
 
+.glassBag:hover {
+  background: transparent;
+  color: var(--lime-dark);
 
-/* HIDE OLD BAG TEXT */
-
-.glassBag span {
-  display: none;
+  transform: translateY(-2px);
 }
 
 
@@ -329,32 +331,25 @@ img {
 .glassBag b {
   position: absolute;
 
-  top: -7px;
-  right: -7px;
+  top: 1px;
+  right: -2px;
 
-  min-width: 21px;
-  height: 21px;
-  padding: 0 5px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 4px;
 
   display: grid;
   place-items: center;
 
-  background: var(--brown);
-  color: var(--cream);
+  background: var(--lime);
+  color: var(--brown);
 
   border-radius: 50%;
 
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 900;
+
   line-height: 1;
-
-  border: 2px solid var(--cream-light);
-}
-
-.glassBag:hover {
-  background: var(--lime);
-  border-color: var(--lime);
-  transform: translateY(-2px);
 }
 
 
@@ -364,7 +359,7 @@ img {
 
 .searchPanel {
   position: fixed;
-  top: 112px;
+  top: 105px;
   right: 5%;
   z-index: 60;
 
@@ -1395,23 +1390,40 @@ footer p {
     display: none;
   }
 
-  .glassNav {
-    top: 8px;
 
-    min-height: 65px;
-    margin: 8px 15px 0;
-    padding: 0 15px;
+  /* CLEAN MOBILE NAV */
+
+  .glassNav {
+    min-height: 66px;
+
+    margin: 14px 15px 0;
+    padding: 0 22px;
 
     border-radius: 22px;
 
+    background: var(--cream-light);
+
     box-shadow:
       0 8px 24px rgba(33, 26, 21, 0.12),
-      0 2px 6px rgba(33, 26, 21, 0.05);
+      0 2px 5px rgba(33, 26, 21, 0.05);
   }
 
   .menuButton {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    background: transparent;
+
+    gap: 5px;
+  }
+
+  .menuButton span {
+    width: 25px;
+    height: 2px;
+
+    background: var(--brown);
   }
 
   .logo {
@@ -1419,53 +1431,74 @@ footer p {
   }
 
   .navActions {
-    gap: 8px;
+    gap: 14px;
   }
 
+
+  /* CLEAN SEARCH */
+
   .searchButton {
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
+
+    background: transparent;
+    color: var(--brown);
   }
 
   .searchButton svg {
-    width: 19px;
-    height: 19px;
+    width: 25px;
+    height: 25px;
   }
 
+
+  /* CLEAN CART */
+
   .glassBag {
-    width: 42px;
+    width: 34px;
     height: 38px;
 
-    border-radius: 11px;
+    background: transparent;
   }
 
   .glassBag::before {
-    width: 17px;
+    width: 19px;
     height: 14px;
+
+    top: 14px;
+
+    border-width: 2.2px;
   }
 
   .glassBag::after {
-    width: 8px;
-    height: 6px;
+    width: 9px;
+    height: 7px;
 
-    top: 8px;
+    top: 7px;
+
+    border-width: 2.2px;
   }
 
   .glassBag b {
-    top: -6px;
-    right: -6px;
+    top: 0;
+    right: -5px;
 
-    min-width: 19px;
-    height: 19px;
+    min-width: 17px;
+    height: 17px;
 
     font-size: 8px;
   }
 
+
+  /* SEARCH PANEL */
+
   .searchPanel {
-    top: 95px;
+    top: 108px;
     right: 15px;
     width: calc(100vw - 30px);
   }
+
+
+  /* HERO */
 
   .hero {
     min-height: 550px;
@@ -1490,6 +1523,9 @@ footer p {
     font-size: 13px;
   }
 
+
+  /* CATEGORIES */
+
   .cats {
     padding: 15px;
     gap: 7px;
@@ -1504,6 +1540,9 @@ footer p {
     padding: 8px 11px;
     font-size: 8px;
   }
+
+
+  /* PRODUCT SECTION */
 
   .section {
     padding: 75px 15px;
@@ -1550,6 +1589,9 @@ footer p {
     font-size: 7px;
   }
 
+
+  /* TRENDING */
+
   .trend {
     margin: 15px 15px 75px;
     border-radius: 20px;
@@ -1567,6 +1609,9 @@ footer p {
     min-height: 400px;
   }
 
+
+  /* ABOUT */
+
   .about {
     padding: 75px 20px;
   }
@@ -1579,12 +1624,18 @@ footer p {
     font-size: 13px;
   }
 
+
+  /* FOOTER */
+
   footer {
     padding: 40px 15px;
 
     align-items: flex-start;
     flex-direction: column;
   }
+
+
+  /* PRODUCT PAGE */
 
   .productHeader {
     min-height: 65px;
@@ -1628,6 +1679,14 @@ footer p {
 ========================================================= */
 
 @media (max-width: 380px) {
+
+  .glassNav {
+    padding: 0 18px;
+  }
+
+  .navActions {
+    gap: 10px;
+  }
 
   .heroText h1 {
     font-size: 44px;
