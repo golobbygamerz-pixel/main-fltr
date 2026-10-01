@@ -2763,3 +2763,181 @@ header {
   }
 
 }
+/* ========================================
+   PRODUCT PAGE NAVBAR — SAME AS HOME
+======================================== */
+
+.productPage {
+  background: var(--cream);
+  color: var(--brown);
+  min-height: 100vh;
+}
+
+.productHeader {
+  width: calc(100% - 10%);
+  min-height: 62px;
+  height: 62px;
+
+  margin: 8px 5% 10px;
+  padding: 0 24px;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+
+  background: var(--cream-light);
+  color: var(--brown);
+
+  border: 1px solid rgba(33, 26, 21, 0.08);
+  border-radius: 20px;
+
+  box-shadow:
+    0 8px 24px rgba(33, 26, 21, 0.10),
+    0 2px 6px rgba(33, 26, 21, 0.04);
+
+  position: relative;
+  z-index: 20;
+}
+
+.productHeader .logo {
+  color: var(--brown);
+  justify-self: center;
+}
+
+/* BACK */
+
+.backButton {
+  justify-self: start;
+
+  border: 0;
+  background: transparent;
+  color: var(--brown);
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  padding: 9px 0;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+}
+
+.backButton:hover {
+  opacity: 0.55;
+}
+
+
+/* CART ROUND UI */
+
+.productCart {
+  justify-self: end;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  background: var(--cream);
+  color: var(--brown);
+
+  border: 1px solid rgba(33, 26, 21, 0.10);
+  border-radius: 50%;
+
+  box-shadow:
+    0 4px 12px rgba(33, 26, 21, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.productCart:hover {
+  transform: translateY(-1px);
+  background: var(--cream-light);
+}
+
+.productCart svg {
+  width: 18px;
+  height: 18px;
+}
+
+.productCart b {
+  position: absolute;
+
+  top: -4px;
+  right: -4px;
+
+  min-width: 16px;
+  height: 16px;
+
+  padding: 0 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--brown);
+  color: var(--cream-light);
+
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+
+/* ========================================
+   PRODUCT PAGE MOBILE NAVBAR
+======================================== */
+
+@media (max-width: 600px) {
+
+  .productHeader {
+    width: calc(100% - 30px);
+    min-height: 58px;
+    height: 58px;
+
+    margin: 7px 15px 8px;
+    padding: 0 18px;
+
+    border-radius: 18px;
+  }
+
+  .productHeader .logo {
+    font-size: 15px;
+  }
+
+  .backButton {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+
+  .productCart {
+    width: 36px;
+    height: 36px;
+  }
+
+  .productCart svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .productCart b {
+    min-width: 15px;
+    height: 15px;
+
+    top: -4px;
+    right: -4px;
+
+    font-size: 7px;
+  }
+
+}
