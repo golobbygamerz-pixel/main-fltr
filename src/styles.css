@@ -92,13 +92,12 @@ img {
 
 .glassNav {
   position: sticky;
-  top: 10px;
+  top: 12px;
   z-index: 50;
 
-  width: calc(100% - 30px);
-  min-height: 78px;
-  margin: 10px 15px 0;
-  padding: 0 5%;
+  min-height: 76px;
+  margin: 12px 2.5% 0;
+  padding: 0 28px;
 
   display: flex;
   align-items: center;
@@ -112,8 +111,8 @@ img {
   border-radius: 24px;
 
   box-shadow:
-    0 12px 30px rgba(33, 26, 21, 0.12),
-    0 3px 8px rgba(33, 26, 21, 0.06);
+    0 10px 30px rgba(33, 26, 21, 0.10),
+    0 2px 8px rgba(33, 26, 21, 0.05);
 }
 
 .glassNav::before {
@@ -182,21 +181,24 @@ img {
 .menuButton {
   display: none;
 
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
 
   background: var(--lime);
+
   border-radius: 50%;
 
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
+
+  flex-shrink: 0;
 }
 
 .menuButton span {
-  width: 15px;
-  height: 1.5px;
+  width: 17px;
+  height: 2px;
   background: var(--brown);
 }
 
@@ -208,12 +210,15 @@ img {
 .navActions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
+
+/* SEARCH */
+
 .searchButton {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
 
   display: grid;
   place-items: center;
@@ -221,13 +226,14 @@ img {
   background: transparent;
   color: var(--brown);
 
-  border: 1px solid rgba(33, 26, 21, 0.25);
+  border: 1px solid rgba(33, 26, 21, 0.22);
   border-radius: 50%;
 
   transition:
     background 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .searchButton:hover {
@@ -238,51 +244,48 @@ img {
 }
 
 .searchButton svg {
-  width: 18px;
-  height: 18px;
+  width: 21px;
+  height: 21px;
 }
 
 
 /* =========================================================
-   CART
+   CART / BAG
 ========================================================= */
 
 .glassBag {
-  min-width: 48px;
-  min-height: 48px;
-  padding: 0 11px;
-
   position: relative;
+
+  width: 52px;
+  height: 48px;
+  padding: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
 
-  background: var(--lime);
+  background: transparent;
   color: var(--brown);
 
-  border: 1px solid rgba(33, 26, 21, 0.08);
-  border-radius: 16px;
+  border: 1px solid rgba(33, 26, 21, 0.22);
+  border-radius: 14px;
 
-  box-shadow: 0 6px 15px rgba(33, 26, 21, 0.12);
-
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  font-size: 0;
 
   transition:
     background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* Cart icon */
+
+/* CSS CART ICON */
+
 .glassBag::before {
   content: "";
 
-  width: 17px;
-  height: 13px;
+  width: 21px;
+  height: 17px;
 
   display: block;
 
@@ -291,43 +294,47 @@ img {
 
   border-radius: 2px;
 
-  transform: translateY(1px);
+  transform: translateY(3px);
 }
 
-/* Cart handle + wheels */
 .glassBag::after {
-  content: "•  •";
+  content: "";
 
   position: absolute;
 
-  left: 14px;
-  bottom: 8px;
+  width: 10px;
+  height: 7px;
 
-  color: var(--brown);
+  top: 11px;
+  left: 50%;
 
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 4px;
-  line-height: 1;
+  border: 2px solid var(--brown);
+  border-bottom: 0;
+
+  border-radius: 8px 8px 0 0;
+
+  transform: translateX(-50%);
 }
 
-.glassBag:hover {
-  background: var(--lime-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 9px 20px rgba(33, 26, 21, 0.16);
-}
+
+/* HIDE OLD BAG TEXT */
 
 .glassBag span {
   display: none;
 }
 
+
+/* CART COUNT */
+
 .glassBag b {
   position: absolute;
+
   top: -7px;
   right: -7px;
 
-  min-width: 22px;
-  height: 22px;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 5px;
 
   display: grid;
   place-items: center;
@@ -335,10 +342,19 @@ img {
   background: var(--brown);
   color: var(--cream);
 
-  border: 2px solid var(--cream-light);
   border-radius: 50%;
 
   font-size: 9px;
+  font-weight: 900;
+  line-height: 1;
+
+  border: 2px solid var(--cream-light);
+}
+
+.glassBag:hover {
+  background: var(--lime);
+  border-color: var(--lime);
+  transform: translateY(-2px);
 }
 
 
@@ -1380,19 +1396,17 @@ footer p {
   }
 
   .glassNav {
-    top: 7px;
+    top: 8px;
 
-    width: calc(100% - 20px);
     min-height: 65px;
-
-    margin: 7px 10px 0;
+    margin: 8px 15px 0;
     padding: 0 15px;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
     box-shadow:
-      0 10px 25px rgba(33, 26, 21, 0.14),
-      0 3px 7px rgba(33, 26, 21, 0.06);
+      0 8px 24px rgba(33, 26, 21, 0.12),
+      0 2px 6px rgba(33, 26, 21, 0.05);
   }
 
   .menuButton {
@@ -1405,36 +1419,36 @@ footer p {
   }
 
   .navActions {
-    gap: 7px;
+    gap: 8px;
   }
 
   .searchButton {
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .searchButton svg {
+    width: 19px;
+    height: 19px;
   }
 
   .glassBag {
-    min-width: 38px;
-    min-height: 38px;
-    width: 38px;
+    width: 42px;
     height: 38px;
 
-    padding: 0;
-
-    border-radius: 13px;
+    border-radius: 11px;
   }
 
   .glassBag::before {
-    width: 14px;
-    height: 11px;
+    width: 17px;
+    height: 14px;
   }
 
   .glassBag::after {
-    left: 10px;
-    bottom: 5px;
+    width: 8px;
+    height: 6px;
 
-    font-size: 7px;
-    letter-spacing: 3px;
+    top: 8px;
   }
 
   .glassBag b {
