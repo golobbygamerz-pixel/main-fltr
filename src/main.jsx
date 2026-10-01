@@ -357,7 +357,7 @@ function App() {
             className="logo"
             href="#"
           >
-            WEIRD<span>CULTURE</span>
+            MAIN<span>FILTER</span>
           </a>
 
           <div className="desktopLinks">
