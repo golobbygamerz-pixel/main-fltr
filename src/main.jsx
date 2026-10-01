@@ -185,7 +185,7 @@ function App() {
               closeProduct();
             }}
           >
-            WEIRD<span>CULTURE</span>
+            MAIN<span>FILTER</span>
           </a>
 
           <div className="productCart">
