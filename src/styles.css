@@ -4039,3 +4039,42 @@ header {
   }
 
 }
+/* CART HEADER MOBILE OVERLAP FIX */
+.cartPageHeader {
+  position: relative;
+}
+
+.cartLogo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  white-space: nowrap;
+}
+
+.cartHeaderCount {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .cartPageHeader {
+    position: relative;
+  }
+
+  .cartLogo {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+  }
+
+  .cartHeaderCount {
+    display: none;
+  }
+}
