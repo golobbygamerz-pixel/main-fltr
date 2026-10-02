@@ -4078,3 +4078,31 @@ header {
     display: none;
   }
 }
+/* FOOTER MOBILE OVERLAP FIX */
+@media (max-width: 600px) {
+  .footer {
+    position: relative;
+  }
+
+  .footer .logo {
+    position: static !important;
+    transform: none !important;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+
+  .footer p {
+    margin: 0;
+    order: 1;
+  }
+
+  .footer .logo {
+    order: 2;
+  }
+}
