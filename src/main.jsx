@@ -74,7 +74,10 @@ const formatPrice = (price) =>
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
-  const [cartCount, setCartCount] = useState(0);
+
+  const [cartItems, setCartItems] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
+
   const [cartMessage, setCartMessage] = useState("");
 
   const [searchOpen, setSearchOpen] = useState(false);
@@ -82,10 +85,34 @@ function App() {
 
   const [flyingProduct, setFlyingProduct] = useState(null);
 
+  /*
+  ========================================
+  CART COUNT
+  ========================================
+  */
+
+  const cartCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  const cartTotal = cartItems.reduce(
+    (total, item) =>
+      total + item.price * item.quantity,
+    0
+  );
+
+  /*
+  ========================================
+  SEARCH
+  ========================================
+  */
+
   const openSearch = () => {
     setSearchOpen(true);
     setSearchTerm("");
     setSelectedProduct(null);
+    setCartOpen(false);
 
     window.scrollTo({
       top: 0,
@@ -103,11 +130,18 @@ function App() {
     });
   };
 
+  /*
+  ========================================
+  PRODUCT
+  ========================================
+  */
+
   const openProduct = (product) => {
     setSelectedProduct(product);
     setSelectedSize("");
     setCartMessage("");
     setSearchOpen(false);
+    setCartOpen(false);
     setSearchTerm("");
 
     window.scrollTo({
@@ -127,33 +161,141 @@ function App() {
     });
   };
 
+  /*
+  ========================================
+  CART OPEN / CLOSE
+  ========================================
+  */
+
+  const openCart = () => {
+    setCartOpen(true);
+    setSelectedProduct(null);
+    setSearchOpen(false);
+    setSearchTerm("");
+    setSelectedSize("");
+    setCartMessage("");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const closeCart = () => {
+    setCartOpen(false);
+    setCartMessage("");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  /*
+  ========================================
+  ADD TO CART
+  ========================================
+  */
+
   const addToCart = () => {
     if (!selectedSize) {
       setCartMessage("SELECT A SIZE FIRST");
       return;
     }
 
-    setCartCount((count) => count + 1);
+    const product = selectedProduct;
+
+    setCartItems((currentItems) => {
+      const existingItem = currentItems.find(
+        (item) =>
+          item.id === product.id &&
+          item.size === selectedSize
+      );
+
+      if (existingItem) {
+        return currentItems.map((item) =>
+          item.id === product.id &&
+          item.size === selectedSize
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item
+        );
+      }
+
+      return [
+        ...currentItems,
+        {
+          id: product.id,
+          name: product.name,
+          category: product.category,
+          price: product.price,
+          image: product.image,
+          size: selectedSize,
+          quantity: 1,
+        },
+      ];
+    });
 
     setCartMessage(
-      `${selectedProduct.name} — SIZE ${selectedSize} ADDED`
+      `${product.name} — SIZE ${selectedSize} ADDED`
     );
 
     setFlyingProduct({
-      image: selectedProduct.image,
+      image: product.image,
       id: Date.now(),
     });
   };
 
-  useEffect(() => {
-    if (!flyingProduct) return;
+  /*
+  ========================================
+  CART QUANTITY
+  ========================================
+  */
 
-    const timer = setTimeout(() => {
-      setFlyingProduct(null);
-    }, 900);
+  const increaseQuantity = (id, size) => {
+    setCartItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === id && item.size === size
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+            }
+          : item
+      )
+    );
+  };
 
-    return () => clearTimeout(timer);
-  }, [flyingProduct]);
+  const decreaseQuantity = (id, size) => {
+    setCartItems((currentItems) =>
+      currentItems
+        .map((item) =>
+          item.id === id && item.size === size
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+              }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  const removeFromCart = (id, size) => {
+    setCartItems((currentItems) =>
+      currentItems.filter(
+        (item) =>
+          !(item.id === id && item.size === size)
+      )
+    );
+  };
+
+  /*
+  ========================================
+  BUY NOW
+  ========================================
+  */
 
   const buyNow = () => {
     if (!selectedSize) {
@@ -166,16 +308,329 @@ function App() {
     );
   };
 
-  const filteredProducts = products.filter((product) => {
-    const query = searchTerm.toLowerCase().trim();
+  /*
+  ========================================
+  FLYING PRODUCT
+  ========================================
+  */
 
-    if (!query) return true;
+  useEffect(() => {
+    if (!flyingProduct) return;
 
+    const timer = setTimeout(() => {
+      setFlyingProduct(null);
+    }, 900);
+
+    return () => clearTimeout(timer);
+  }, [flyingProduct]);
+
+  /*
+  ========================================
+  SEARCH FILTER
+  ========================================
+  */
+
+  const filteredProducts = products.filter(
+    (product) => {
+      const query = searchTerm
+        .toLowerCase()
+        .trim();
+
+      if (!query) return true;
+
+      return (
+        product.name
+          .toLowerCase()
+          .includes(query) ||
+        product.category
+          .toLowerCase()
+          .includes(query)
+      );
+    }
+  );
+
+  /*
+  ========================================
+  CART PAGE
+  ========================================
+  */
+
+  if (cartOpen) {
     return (
-      product.name.toLowerCase().includes(query) ||
-      product.category.toLowerCase().includes(query)
+      <div className="cartPage">
+
+        <header className="cartPageHeader">
+
+          <button
+            className="cartBackButton"
+            onClick={closeCart}
+          >
+            ← BACK
+          </button>
+
+          <a
+            className="logo"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              closeCart();
+            }}
+          >
+            MAIN<span>FILTER</span>
+          </a>
+
+          <span className="cartHeaderCount">
+            {cartCount} ITEMS
+          </span>
+
+        </header>
+
+        <main className="cartContent">
+
+          <div className="cartTop">
+
+            <div>
+              <small>YOUR SELECTION</small>
+
+              <h1>
+                YOUR CART.
+              </h1>
+            </div>
+
+            {cartItems.length > 0 && (
+              <span className="cartItemCount">
+                {cartCount}{" "}
+                {cartCount === 1
+                  ? "ITEM"
+                  : "ITEMS"}
+              </span>
+            )}
+
+          </div>
+
+          {cartItems.length === 0 ? (
+
+            <div className="emptyCart">
+
+              <div className="emptyCartIcon">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="9" cy="20" r="1.3" />
+                  <circle cx="19" cy="20" r="1.3" />
+                  <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.5L22 8H6" />
+                </svg>
+
+              </div>
+
+              <h2>
+                YOUR CART IS EMPTY.
+              </h2>
+
+              <p>
+                Looks like you haven't added
+                anything yet.
+              </p>
+
+              <button
+                className="continueShoppingButton"
+                onClick={closeCart}
+              >
+                SHOP LATEST DROPS →
+              </button>
+
+            </div>
+
+          ) : (
+
+            <div className="cartLayout">
+
+              <section className="cartItems">
+
+                {cartItems.map((item) => (
+
+                  <article
+                    className="cartItem"
+                    key={`${item.id}-${item.size}`}
+                  >
+
+                    <div
+                      className="cartItemImage"
+                      onClick={() => {
+                        const product = products.find(
+                          (product) =>
+                            product.id === item.id
+                        );
+
+                        if (product) {
+                          closeCart();
+                          openProduct(product);
+                        }
+                      }}
+                    >
+
+                      <img
+                        src={img(item.image)}
+                        alt={item.name}
+                      />
+
+                    </div>
+
+                    <div className="cartItemInfo">
+
+                      <span className="cartItemCategory">
+                        {item.category}
+                      </span>
+
+                      <h3>
+                        {item.name}
+                      </h3>
+
+                      <span className="cartItemSize">
+                        SIZE {item.size}
+                      </span>
+
+                      <strong>
+                        {formatPrice(item.price)}
+                      </strong>
+
+                    </div>
+
+                    <div className="cartItemActions">
+
+                      <div className="quantityControl">
+
+                        <button
+                          onClick={() =>
+                            decreaseQuantity(
+                              item.id,
+                              item.size
+                            )
+                          }
+                          aria-label="Decrease quantity"
+                        >
+                          −
+                        </button>
+
+                        <span>
+                          {item.quantity}
+                        </span>
+
+                        <button
+                          onClick={() =>
+                            increaseQuantity(
+                              item.id,
+                              item.size
+                            )
+                          }
+                          aria-label="Increase quantity"
+                        >
+                          +
+                        </button>
+
+                      </div>
+
+                      <button
+                        className="removeCartItem"
+                        onClick={() =>
+                          removeFromCart(
+                            item.id,
+                            item.size
+                          )
+                        }
+                      >
+                        REMOVE
+                      </button>
+
+                    </div>
+
+                    <div className="cartItemTotal">
+                      {formatPrice(
+                        item.price * item.quantity
+                      )}
+                    </div>
+
+                  </article>
+
+                ))}
+
+              </section>
+
+              <aside className="cartSummary">
+
+                <div className="summaryHeader">
+                  <span>ORDER SUMMARY</span>
+                </div>
+
+                <div className="summaryRow">
+                  <span>SUBTOTAL</span>
+
+                  <strong>
+                    {formatPrice(cartTotal)}
+                  </strong>
+                </div>
+
+                <div className="summaryRow">
+                  <span>SHIPPING</span>
+
+                  <strong>
+                    {cartTotal >= 999
+                      ? "FREE"
+                      : "CALCULATED AT CHECKOUT"}
+                  </strong>
+                </div>
+
+                <div className="summaryDivider" />
+
+                <div className="summaryTotal">
+                  <span>TOTAL</span>
+
+                  <strong>
+                    {formatPrice(cartTotal)}
+                  </strong>
+                </div>
+
+                <button
+                  className="checkoutButton"
+                  onClick={() =>
+                    setCartMessage(
+                      "CHECKOUT READY — PAYMENT CAN BE CONNECTED HERE"
+                    )
+                  }
+                >
+                  CHECKOUT →
+                </button>
+
+                {cartMessage && (
+                  <p className="checkoutMessage">
+                    {cartMessage}
+                  </p>
+                )}
+
+                <button
+                  className="continueShopping"
+                  onClick={closeCart}
+                >
+                  ← CONTINUE SHOPPING
+                </button>
+
+              </aside>
+
+            </div>
+
+          )}
+
+        </main>
+
+      </div>
     );
-  });
+  }
 
   /*
   ========================================
@@ -215,7 +670,11 @@ function App() {
             MAIN<span>FILTER</span>
           </a>
 
-          <div className="productCart">
+          <button
+            className="productCart"
+            onClick={openCart}
+            aria-label={`Shopping cart with ${cartCount} items`}
+          >
 
             <svg
               viewBox="0 0 24 24"
@@ -232,7 +691,7 @@ function App() {
 
             <b>{cartCount}</b>
 
-          </div>
+          </button>
 
         </header>
 
@@ -291,22 +750,24 @@ function App() {
 
               <div className="sizeButtons">
 
-                {selectedProduct.sizes.map((size) => (
-                  <button
-                    key={size}
-                    className={
-                      selectedSize === size
-                        ? "sizeButton active"
-                        : "sizeButton"
-                    }
-                    onClick={() => {
-                      setSelectedSize(size);
-                      setCartMessage("");
-                    }}
-                  >
-                    {size}
-                  </button>
-                ))}
+                {selectedProduct.sizes.map(
+                  (size) => (
+                    <button
+                      key={size}
+                      className={
+                        selectedSize === size
+                          ? "sizeButton active"
+                          : "sizeButton"
+                      }
+                      onClick={() => {
+                        setSelectedSize(size);
+                        setCartMessage("");
+                      }}
+                    >
+                      {size}
+                    </button>
+                  )
+                )}
 
               </div>
 
@@ -340,17 +801,23 @@ function App() {
 
               <div>
                 <span>FIT</span>
-                <strong>RELAXED / OVERSIZED</strong>
+                <strong>
+                  RELAXED / OVERSIZED
+                </strong>
               </div>
 
               <div>
                 <span>SHIPPING</span>
-                <strong>FREE ABOVE ₹999</strong>
+                <strong>
+                  FREE ABOVE ₹999
+                </strong>
               </div>
 
               <div>
                 <span>AVAILABILITY</span>
-                <strong>IN STOCK</strong>
+                <strong>
+                  IN STOCK
+                </strong>
               </div>
 
             </div>
@@ -443,7 +910,9 @@ function App() {
             {searchTerm && (
               <button
                 className="clearSearch"
-                onClick={() => setSearchTerm("")}
+                onClick={() =>
+                  setSearchTerm("")
+                }
                 aria-label="Clear search"
               >
                 ×
@@ -466,61 +935,73 @@ function App() {
 
             {filteredProducts.length > 0 ? (
 
-              filteredProducts.map((product) => (
+              filteredProducts.map(
+                (product) => (
 
-                <article
-                  className="card"
-                  key={product.id}
-                  onClick={() => openProduct(product)}
-                >
+                  <article
+                    className="card"
+                    key={product.id}
+                    onClick={() =>
+                      openProduct(product)
+                    }
+                  >
 
-                  <div className="pic">
+                    <div className="pic">
 
-                    <img
-                      src={img(product.image)}
-                      alt={product.name}
-                    />
+                      <img
+                        src={img(product.image)}
+                        alt={product.name}
+                      />
 
-                    {(product.id === 1 ||
-                      product.id === 4) && (
-                      <b>
-                        NEW DROP
-                      </b>
-                    )}
+                      {(product.id === 1 ||
+                        product.id === 4) && (
+                        <b>
+                          NEW DROP
+                        </b>
+                      )}
 
-                  </div>
+                    </div>
 
-                  <p>
-                    {product.category}
-                  </p>
+                    <p>
+                      {product.category}
+                    </p>
 
-                  <h3>
-                    {product.name}
-                  </h3>
+                    <h3>
+                      {product.name}
+                    </h3>
 
-                  <strong>
-                    {formatPrice(product.price)}
-                  </strong>
+                    <strong>
+                      {formatPrice(
+                        product.price
+                      )}
+                    </strong>
 
-                </article>
+                  </article>
 
-              ))
+                )
+              )
 
             ) : (
 
               <div className="noSearchResults">
-                <h2>NO PRODUCTS FOUND.</h2>
+
+                <h2>
+                  NO PRODUCTS FOUND.
+                </h2>
 
                 <p>
-                  Try searching for another product
-                  or category.
+                  Try searching for another
+                  product or category.
                 </p>
 
                 <button
-                  onClick={() => setSearchTerm("")}
+                  onClick={() =>
+                    setSearchTerm("")
+                  }
                 >
                   VIEW ALL PRODUCTS →
                 </button>
+
               </div>
 
             )}
@@ -626,9 +1107,9 @@ function App() {
 
             </button>
 
-            <a
+            <button
               className="glassBag"
-              href="#shop"
+              onClick={openCart}
               aria-label={`Shopping cart with ${cartCount} items`}
             >
 
@@ -661,7 +1142,7 @@ function App() {
                 {cartCount}
               </b>
 
-            </a>
+            </button>
 
           </div>
 
@@ -797,7 +1278,9 @@ function App() {
                   </h3>
 
                   <strong>
-                    {formatPrice(product.price)}
+                    {formatPrice(
+                      product.price
+                    )}
                   </strong>
 
                 </article>
