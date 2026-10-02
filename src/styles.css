@@ -4106,3 +4106,52 @@ header {
     order: 2;
   }
 }
+/* FOOTER LOGO OVERLAP FIX */
+footer#contact {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 20px !important;
+  padding: 40px 5% !important;
+}
+
+footer#contact .logo {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  z-index: 1 !important;
+}
+
+footer#contact p {
+  position: static !important;
+  margin: 0 !important;
+  z-index: 1 !important;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  footer#contact {
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 14px !important;
+    padding: 34px 20px !important;
+    text-align: center !important;
+  }
+
+  footer#contact p {
+    order: 1 !important;
+    font-size: 10px !important;
+    line-height: 1.5 !important;
+  }
+
+  footer#contact .logo {
+    order: 2 !important;
+    font-size: 15px !important;
+  }
+}
